@@ -1,0 +1,12 @@
+<form {{on 'submit' this.addBook}}>
+    <div>
+        <label for="name">Nome:</label>
+        <input type="text" name="name" id="name" required>
+    </div>
+    <div>
+        <label for="goodreads">Goodreads:</label>
+        <input type="url" name="goodreads" id="goodreads">
+    </div>
+
+    <button type="submit" disable={{this.isSubmitting}}>Submeter</button>
+</form>

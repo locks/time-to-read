@@ -1,0 +1,66 @@
+<main>
+    <LinkTo @route="add">Adicionar livro</LinkTo>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Goodreads</th>
+                <th>Time spent</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each @model as |book|}}
+                <tr>
+                    <td><LinkTo @route="book" @model={{book}}>{{book.name}}</LinkTo><button type="button" {{on 'click' (fn this.startTracking book)}}>track</button></td>
+                    <td><a href={{book.goodreads}}></a></td>
+                    <td>{{book.totalReadingTime}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    {{#let this.bookBeingTracked as |book|}}
+        {{#if book}}
+            <h2>{{book.name}}</h2>
+            <p>Tempo: {{book.totalReadingTime}}</p>
+            <p>Status: {{this.currentStatus}}</p>
+
+            <p>Página inicial: <Input @value={{this._readingSession.startPage}}/></p>
+            <p>Página final: <Input @value={{this._readingSession.stopPage}}/></p>
+
+            <div>
+                <button
+                    type="button"
+                    {{on 'click' this.registerStart}}
+                    disabled={{if this._readingSession true false}}
+                >
+                    Start
+                </button>
+                <button
+                    type="button"
+                    {{on 'click' this.registerStop}}
+                    disabled={{unless this._readingSession true false}}
+                >
+                    Stop
+                </button>
+                <button
+                    type="button"
+                    {{on 'click' this.registerCancel}}
+                    disabled={{unless this._readingSession true false}}
+                >
+                    Cancel
+                </button>
+            </div>
+
+            <div>
+                <button
+                    type="button"
+                    {{on 'click' this.registerSubmit}}
+                >
+                    Guardar
+                </button>
+            </div>
+        {{/if}}
+    {{/let}}
+</main>

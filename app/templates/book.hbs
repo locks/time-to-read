@@ -1,0 +1,7 @@
+<h2>{{@model.name}}</h2>
+
+<ol>
+    {{#each @model.sessions as |session|}}
+        <li>{{session.startTime}} pp.{{session.startPage}} ~ {{session.stopTime}} pp.{{session.stopPage}} ({{session.timePerPage}} pp/h)</li>
+    {{/each}}
+</ol>
